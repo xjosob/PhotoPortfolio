@@ -2,7 +2,9 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Welcome to the Photo Portfolio</h1>
+
+<p>
+    <a href="@Url.Action("Index", "Albums")" class="btn btn-primary">View Albums</a>
+    <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Admin Dashboard</a>
+</p>

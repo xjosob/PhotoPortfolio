@@ -6,19 +6,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 
-
 namespace PhotoPortfolio.Controllers
 {
     public class PhotosController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment _enviroment;
+        private readonly IWebHostEnvironment _environment;
 
         public PhotosController(ApplicationDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
-            _enviroment = environment;
+            _environment = environment;
         }
+
+        // Create a new photo
         public IActionResult Create(int albumId)
         {
             ViewBag.AlbumId = albumId;
@@ -31,7 +32,7 @@ namespace PhotoPortfolio.Controllers
         {
             if (file != null && file.Length > 0)
             {
-                var uploadPath = Path.Combine(_enviroment.WebRootPath, "uploads");
+                var uploadPath = Path.Combine(_environment.WebRootPath, "uploads");
                 var filePath = Path.Combine(uploadPath, file.FileName);
 
                 if (!Directory.Exists(uploadPath))
@@ -39,7 +40,7 @@ namespace PhotoPortfolio.Controllers
                     Directory.CreateDirectory(uploadPath);
                 }
 
-                using(var fileStream = new FileStream(filePath, FileMode.Create))
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
                 }

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<PhotoPortfolio.Models.Album>
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h1>Admin Dashboard</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Photos</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var album in Model)
+        {
+            <tr>
+                <td>@album.Title</td>
+                <td>@album.Description</td>
+                <td>@album.Photos.Count</td>
+                <td>
+                    <a href="@Url.Action("Details", "Albums", new { id = album.AlbumID })" class="btn btn-info">View</a>
+                    <a href="@Url.Action("Create", "Photos", new { albumId = album.AlbumID })" class="btn btn-primary">Add Photo</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
