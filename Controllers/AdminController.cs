@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PhotoPortfolio.Data;
+using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
 
 namespace PhotoPortfolio.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
