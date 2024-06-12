@@ -4,40 +4,41 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-public static class SeedData
+namespace PhotoPortfolio.Data
 {
-    public static async Task Initialize(IServiceProvider serviceProvider, UserManager<IdentityUser> userManager)
+    public static class SeedData
     {
-        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-        string[] roleNames = { "Admin" };
-        IdentityResult roleResult;
-
-        foreach (var roleName in roleNames)
+        public static async Task Initialize(IServiceProvider serviceProvider, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            var roleExist = await roleManager.RoleExistsAsync(roleName);
-            if (!roleExist)
+            string[] roleNames = { "Admin" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
             {
-                roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+                var roleExist = await roleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+                }
             }
-        }
 
-        var adminUser = new IdentityUser
-        {
-            UserName = "admin@admin.com",
-            Email = "admin@admin.com",
-        };
-
-        string adminPassword = "Admin@123";
-
-        var user = await userManager.FindByEmailAsync(adminUser.Email);
-
-        if (user == null)
-        {
-            var createPowerUser = await userManager.CreateAsync(adminUser, adminPassword);
-            if (createPowerUser.Succeeded)
+            var adminUser = new IdentityUser
             {
-                await userManager.AddToRoleAsync(adminUser, "Admin");
+                UserName = "admin@admin.com",
+                Email = "admin@admin.com",
+            };
+
+            string adminPassword = "Admin@123";
+
+            var user = await userManager.FindByEmailAsync(adminUser.Email);
+
+            if (user == null)
+            {
+                var createPowerUser = await userManager.CreateAsync(adminUser, adminPassword);
+                if (createPowerUser.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(adminUser, "Admin");
+                }
             }
         }
     }
