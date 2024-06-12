@@ -16,7 +16,8 @@ namespace PhotoPortfolio.Controllers
         public async Task<IActionResult> Index()
         {
             var albums = await _context.Albums.Include(a => a.Photos).ToListAsync();
-            return View();
+            return View(albums);
         }
+
     }
 }
