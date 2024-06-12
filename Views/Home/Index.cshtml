@@ -1,10 +1,22 @@
-﻿@{
+﻿@model IEnumerable<PhotoPortfolio.Models.Album>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Welcome to the Photo Portfolio</h1>
+<h1>Albums</h1>
 
-<p>
-    <a href="@Url.Action("Index", "Albums")" class="btn btn-primary">View Albums</a>
-    <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Admin Dashboard</a>
-</p>
+<div class="row">
+    @foreach (var album in Model)
+    {
+        <div class="col-md-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">@album.Title</h5>
+                    <p class="card-text">@album.Description</p>
+                    <a href="@Url.Action("Details", "Albums", new { id = album.AlbumID })" class="btn btn-primary">View Album</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
