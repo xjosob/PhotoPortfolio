@@ -1,0 +1,26 @@
+﻿@model PhotoPortfolio.Models.Album
+@{
+    ViewData["Title"] = "Album Details";
+}
+
+<h1>@Model.Title</h1>
+<p>@Model.Description</p>
+
+<h1>Photos</h1>
+<p>
+    <a href="@Url.Action("Create", "Photos", new { albumId = Model.AlbumID})" class="btn btn-primary">Add Photos</a>
+</p>
+
+<div class="row">
+    @foreach(var photo in Model.Photos)
+    {
+        <div class="col-md-3">
+            <div class="card mb-3">
+                <img class="card-img-top" src="@photo.FilePath" alt="@photo.Title">
+                <div class="card-body">
+                    <h5 class="card-title">@photo.Title</h5>
+                </div>
+            </div>
+            </div>
+    }
+</div>

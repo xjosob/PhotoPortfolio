@@ -1,0 +1,23 @@
+﻿@model PhotoPortfolio.Models.Photo
+
+@{
+    ViewData["Title"] = "Upload Photo";
+}
+
+<h1>Upload Photo</h1>
+
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="file" class="control-label">File</label>
+        <input type="file" name="file" class="form-control" />
+    </div>
+    <input type="hidden" name="albumId" value="@ViewBag.AlbumId" />
+    <div class="form-group">
+        <input type="submit" value="Upload" class="btn btn-primary" />
+    </div>
+</form>
