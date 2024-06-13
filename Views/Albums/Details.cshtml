@@ -1,4 +1,5 @@
 ﻿@model PhotoPortfolio.Models.Album
+
 @{
     ViewData["Title"] = "Album Details";
 }
@@ -6,13 +7,13 @@
 <h1>@Model.Title</h1>
 <p>@Model.Description</p>
 
-<h1>Photos</h1>
+<h3>Photos</h3>
 <p>
-    <a href="@Url.Action("Create", "Photos", new { albumId = Model.AlbumID})" class="btn btn-primary">Add Photos</a>
+    <a href="@Url.Action("Create", "Photos", new { albumId = Model.AlbumID })" class="btn btn-primary">Add Photo</a>
 </p>
 
 <div class="row">
-    @foreach(var photo in Model.Photos)
+    @foreach (var photo in Model.Photos)
     {
         <div class="col-md-3">
             <div class="card mb-3">
@@ -21,6 +22,6 @@
                     <h5 class="card-title">@photo.Title</h5>
                 </div>
             </div>
-            </div>
+        </div>
     }
 </div>
