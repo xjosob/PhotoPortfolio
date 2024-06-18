@@ -6,13 +6,16 @@
 
 <h1>Admin Dashboard</h1>
 
+<p>
+    <a href="@Url.Action("Create", "Albums")" class="btn btn-primary">Create New Album</a>
+</p>
+
 <table class="table">
     <thead>
         <tr>
             <th>Title</th>
             <th>Description</th>
-            <th>Photos</th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -21,10 +24,10 @@
             <tr>
                 <td>@album.Title</td>
                 <td>@album.Description</td>
-                <td>@album.Photos.Count</td>
                 <td>
                     <a href="@Url.Action("Details", "Albums", new { id = album.AlbumID })" class="btn btn-info">View</a>
-                    <a href="@Url.Action("Create", "Photos", new { albumId = album.AlbumID })" class="btn btn-primary">Add Photo</a>
+                    <a href="@Url.Action("Edit", "Albums", new { id = album.AlbumID })" class="btn btn-warning">Edit</a>
+                    <a href="@Url.Action("Delete", "Albums", new { id = album.AlbumID })" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }

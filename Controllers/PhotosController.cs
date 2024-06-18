@@ -26,6 +26,7 @@ namespace PhotoPortfolio.Controllers
             return View();
         }
 
+        // POST: Photos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int albumId, IFormFile file, [Bind("Title")] Photo photo)
@@ -55,40 +56,41 @@ namespace PhotoPortfolio.Controllers
             }
 
             return View(photo);
+        }
 
-             async Task<IActionResult> Delete(int? id)
+        // GET: Photos/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
             {
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
-                var photo = await _context.Photos
-                    .FirstOrDefaultAsync(m => m.PhotoID == id);
-                if (photo == null)
-                {
-                    return NotFound();
-                }
-
-                return View(photo);
+                return NotFound();
             }
 
-            // POST: Photos/Delete/5
-            [HttpPost, ActionName("Delete")]
-            [ValidateAntiForgeryToken]
-            async Task<IActionResult> DeleteConfirmed(int id)
+            var photo = await _context.Photos
+                .FirstOrDefaultAsync(m => m.PhotoID == id);
+            if (photo == null)
             {
-                var photo = await _context.Photos.FindAsync(id);
-                _context.Photos.Remove(photo);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
 
-            bool PhotoExists(int id)
-            {
-                return _context.Photos.Any(e => e.PhotoID == id);
-            }
+            return View(photo);
+        }
+
+        // POST: Photos/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var photo = await _context.Photos.FindAsync(id);
+            _context.Photos.Remove(photo);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "Albums", new { id = photo.AlbumID });
+        }
+
+        private bool PhotoExists(int id)
+        {
+            return _context.Photos.Any(e => e.PhotoID == id);
         }
     }
-    }
+}
 

@@ -15,13 +15,14 @@
             FilePath
         </dt>
         <dd class="col-sm-10">
-            @Model.FilePath
+            <img src="@Model.FilePath" alt="Photo" class="img-thumbnail" style="max-width: 200px;" />
         </dd>
     </dl>
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="PhotoID" />
+        <input type="hidden" asp-for="AlbumID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        <a asp-action="Details" asp-controller="Albums" asp-route-id="@Model.AlbumID" class="btn btn-secondary">Back to Album</a>
     </form>
 </div>
