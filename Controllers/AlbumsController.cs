@@ -19,6 +19,31 @@ namespace PhotoPortfolio.Controllers
             _environment = environment;
         }
 
+        // GET: Albums
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Albums.ToListAsync());
+        }
+
+        // GET: Albums/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var album = await _context.Albums
+                .Include(a => a.Photos)
+                .FirstOrDefaultAsync(m => m.AlbumID == id);
+            if (album == null)
+            {
+                return NotFound();
+            }
+
+            return View(album);
+        }
+
         // GET: Albums/Create
         public IActionResult Create()
         {
@@ -122,6 +147,35 @@ namespace PhotoPortfolio.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(album);
+        }
+
+        // GET: Albums/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var album = await _context.Albums
+                .FirstOrDefaultAsync(m => m.AlbumID == id);
+            if (album == null)
+            {
+                return NotFound();
+            }
+
+            return View(album);
+        }
+
+        // POST: Albums/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var album = await _context.Albums.FindAsync(id);
+            _context.Albums.Remove(album);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool AlbumExists(int id)

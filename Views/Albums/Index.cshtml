@@ -1,34 +1,35 @@
 ﻿@model IEnumerable<PhotoPortfolio.Models.Album>
 
-    @{
-        ViewData["Title"] = "Albums";
-    }
+@{
+    ViewData["Title"] = "Albums";
+}
 
-    <h1>Albums</h1>
+<h1>Albums</h1>
 
-    <p>
-        <a href="@Url.Action("Create")" class="btn btn-primary">Create New Album</a>
-    </p>
+<p>
+    <a href="@Url.Action("Create")" class="btn btn-primary">Create New Album</a>
+</p>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach(var album in Model)
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var album in Model)
         {
             <tr>
                 <td>@album.Title</td>
                 <td>@album.Description</td>
-            
-            <td>
-                <a href="@Url.Action("Details", new{ id = album.AlbumID })" class="btn btn-info">View</a>
-            </td>
+                <td>
+                    <a href="@Url.Action("Details", new { id = album.AlbumID })" class="btn btn-info">View</a>
+                    <a href="@Url.Action("Edit", new { id = album.AlbumID })" class="btn btn-warning">Edit</a>
+                    <a href="@Url.Action("Delete", new { id = album.AlbumID })" class="btn btn-danger">Delete</a>
+                </td>
             </tr>
         }
-        </tbody>
-    </table>
+    </tbody>
+</table>
