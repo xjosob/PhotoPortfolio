@@ -5,9 +5,11 @@ using PhotoPortfolio.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PhotoPortfolio.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PhotosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,7 +21,7 @@ namespace PhotoPortfolio.Controllers
             _environment = environment;
         }
 
-        // Create a new photo
+        // GET: Photos/Create
         public IActionResult Create(int albumId)
         {
             ViewBag.AlbumId = albumId;
@@ -29,7 +31,7 @@ namespace PhotoPortfolio.Controllers
         // POST: Photos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int albumId, IFormFile file, [Bind("Title")] Photo photo)
+        public async Task<IActionResult> Create(int albumId, IFormFile file)
         {
             if (file != null && file.Length > 0)
             {
@@ -46,8 +48,11 @@ namespace PhotoPortfolio.Controllers
                     await file.CopyToAsync(fileStream);
                 }
 
-                photo.FilePath = $"/uploads/{file.FileName}";
-                photo.AlbumID = albumId;
+                var photo = new Photo
+                {
+                    FilePath = $"/uploads/{file.FileName}",
+                    AlbumID = albumId
+                };
 
                 _context.Add(photo);
                 await _context.SaveChangesAsync();
@@ -55,7 +60,7 @@ namespace PhotoPortfolio.Controllers
                 return RedirectToAction("Details", "Albums", new { id = albumId });
             }
 
-            return View(photo);
+            return View();
         }
 
         // GET: Photos/Delete/5
@@ -93,4 +98,3 @@ namespace PhotoPortfolio.Controllers
         }
     }
 }
-

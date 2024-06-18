@@ -13,9 +13,13 @@
 }
 
 <h3>Photos</h3>
-<p>
-    <a href="@Url.Action("Create", "Photos", new { albumId = Model.AlbumID })" class="btn btn-primary">Add Photo</a>
-</p>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a href="@Url.Action("Create", "Photos", new { albumId = Model.AlbumID })" class="btn btn-primary">Add Photo</a>
+    </p>
+}
 
 <div class="row">
     @foreach (var photo in Model.Photos)
@@ -24,7 +28,10 @@
             <div class="card mb-3">
                 <img class="card-img-top" src="@photo.FilePath" alt="Photo">
                 <div class="card-body">
-                    <a href="@Url.Action("Delete", "Photos", new { id = photo.PhotoID })" class="btn btn-danger">Delete Photo</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a href="@Url.Action("Delete", "Photos", new { id = photo.PhotoID })" class="btn btn-danger">Delete Photo</a>
+                    }
                 </div>
             </div>
         </div>
