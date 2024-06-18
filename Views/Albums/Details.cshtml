@@ -7,6 +7,11 @@
 <h1>@Model.Title</h1>
 <p>@Model.Description</p>
 
+@if (!string.IsNullOrEmpty(Model.ThumbnailPath))
+{
+    <img src="@Model.ThumbnailPath" alt="Album Thumbnail" class="img-thumbnail" style="width: 150px; height: 150px;" />
+}
+
 <h3>Photos</h3>
 <p>
     <a href="@Url.Action("Create", "Photos", new { albumId = Model.AlbumID })" class="btn btn-primary">Add Photo</a>
@@ -17,9 +22,9 @@
     {
         <div class="col-md-3">
             <div class="card mb-3">
-                <img class="card-img-top" src="@photo.FilePath" alt="@photo.Title">
+                <img class="card-img-top" src="@photo.FilePath" alt="Photo">
                 <div class="card-body">
-                    <h5 class="card-title">@photo.Title</h5>
+                    <a href="@Url.Action("Delete", "Photos", new { id = photo.PhotoID })" class="btn btn-danger">Delete Photo</a>
                 </div>
             </div>
         </div>
