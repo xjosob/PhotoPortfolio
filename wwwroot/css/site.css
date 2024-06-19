@@ -17,16 +17,43 @@ body {
     text-align: center;
 }
 
-.album .card {
+.album-card {
+    position: relative;
     border: none;
-    transition: transform .2s;
+    overflow: hidden;
 }
 
-    .album .card:hover {
-        transform: scale(1.05);
-    }
+.album-image {
+    width: 100%;
+    transition: transform .2s, opacity .2s;
+    opacity: 0.7;
+}
 
-.card-img-top {
-    height: 225px;
-    object-fit: cover;
+.album-link:hover .album-image {
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+.album-title-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    text-align: center;
+    transition: background .2s;
+}
+
+.album-title {
+    color: #333;
+    transition: color .2s;
+}
+
+.album-link:hover .album-title-overlay {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.album-link:hover .album-title {
+    color: white;
 }
