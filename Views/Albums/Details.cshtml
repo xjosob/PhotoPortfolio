@@ -7,11 +7,6 @@
 <h1>@Model.Title</h1>
 <p>@Model.Description</p>
 
-@if (!string.IsNullOrEmpty(Model.ThumbnailPath))
-{
-    <img src="@Model.ThumbnailPath" alt="Album Thumbnail" class="img-thumbnail" style="width: 150px; height: 150px;" />
-}
-
 @if (User.IsInRole("Admin"))
 {
     <form asp-action="UpdateThumbnail" enctype="multipart/form-data">
@@ -40,9 +35,7 @@
     {
         <div class="col-md-3">
             <div class="card mb-3">
-                <a href="@photo.FilePath" target="_blank">
-                    <img class="card-img-top" src="@photo.FilePath" alt="Photo">
-                </a>
+                <img class="card-img-top" src="@photo.FilePath" alt="Photo" data-toggle="modal">
                 <div class="card-body">
                     @if (User.IsInRole("Admin"))
                     {
