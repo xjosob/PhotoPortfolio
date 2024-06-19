@@ -37,16 +37,12 @@
                 <div class="row">
                     @foreach (var photo in Model.Photos)
                     {
-                        <div class="col-md-3">
-                            <div class="card mb-3">
-                                <img class="card-img-top" src="@photo.FilePath" alt="Photo" data-toggle="modal">
-                                <div class="card-body text-center">
-                                    @if (User.IsInRole("Admin"))
-                                    {
-                                        <a href="@Url.Action("Delete", "Photos", new { id = photo.PhotoID })" class="btn btn-danger btn-sm">Delete Photo</a>
-                                    }
-                                </div>
-                            </div>
+                        <div class="col-md-12 mb-3">
+                            <img class="img-fluid" src="@photo.FilePath" alt="Photo">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a href="@Url.Action("Delete", "Photos", new { id = photo.PhotoID })" class="btn btn-danger mt-2">Delete Photo</a>
+                            }
                         </div>
                     }
                 </div>

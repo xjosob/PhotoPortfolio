@@ -23,6 +23,11 @@ body {
     overflow: hidden;
 }
 
+.album-image-container {
+    position: relative;
+    overflow: hidden;
+}
+
 .album-image {
     width: 100%;
     transition: transform .2s, opacity .2s;
@@ -36,22 +41,21 @@ body {
 
 .album-title-overlay {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
     width: 100%;
-    text-align: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
     transition: background .2s;
 }
 
 .album-title {
-    color: #333;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.5em;
     transition: color .2s;
-}
-
-.album-link:hover .album-title-overlay {
-    background: rgba(0, 0, 0, 0.8);
 }
 
 .album-link:hover .album-title {
