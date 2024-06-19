@@ -1,22 +1,32 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+    padding-top: 56px;
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.jumbotron {
+    background-color: #343a40;
+    color: white;
+}
+
+.footer {
+    padding: 1em 0;
+    text-align: center;
+}
+
+.album .card {
+    border: none;
+    transition: transform .2s;
+}
+
+    .album .card:hover {
+        transform: scale(1.05);
+    }
+
+.card-img-top {
+    height: 225px;
+    object-fit: cover;
 }

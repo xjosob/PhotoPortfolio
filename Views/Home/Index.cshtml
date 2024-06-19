@@ -4,23 +4,34 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Albums</h1>
+<div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to PhotoPortfolio</h1>
+    <p class="lead">Showcase your best photography work in one place.</p>
+</div>
 
-<div class="row">
-    @foreach (var album in Model)
-    {
-        <div class="col-md-3">
-            <div class="card mb-3">
-                @if (!string.IsNullOrEmpty(album.ThumbnailPath))
-                {
-                    <img class="card-img-top" src="@album.ThumbnailPath" alt="Album Thumbnail" />
-                }
-                <div class="card-body">
-                    <h5 class="card-title">@album.Title</h5>
-                    <p class="card-text">@album.Description</p>
-                    <a href="@Url.Action("Details", "Albums", new { id = album.AlbumID })" class="btn btn-primary">View Album</a>
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            @foreach (var album in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        @if (!string.IsNullOrEmpty(album.ThumbnailPath))
+                        {
+                            <img class="card-img-top" src="@album.ThumbnailPath" alt="Album Thumbnail">
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@album.Title</h5>
+                            <p class="card-text">@album.Description</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="@Url.Action("Details", "Albums", new { id = album.AlbumID })" class="btn btn-sm btn-outline-secondary">View Album</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
-    }
+    </div>
 </div>
