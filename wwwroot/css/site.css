@@ -60,3 +60,8 @@ body {
 .album-link:hover .album-title {
     color: white;
 }
+
+.album-link {
+    cursor: pointer;
+}
+

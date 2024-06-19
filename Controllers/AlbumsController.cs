@@ -53,7 +53,7 @@ namespace PhotoPortfolio.Controllers
         // POST: Albums/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description")] Album album, IFormFile Thumbnail)
+        public async Task<IActionResult> Create([Bind("Title")] Album album, IFormFile Thumbnail)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +101,7 @@ namespace PhotoPortfolio.Controllers
         // POST: Albums/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AlbumId,Title,Description,ThumbnailPath")] Album album, IFormFile Thumbnail)
+        public async Task<IActionResult> Edit(int id, [Bind("AlbumId,Title,ThumbnailPath")] Album album, IFormFile Thumbnail)
         {
             if (id != album.AlbumID)
             {
@@ -149,6 +149,12 @@ namespace PhotoPortfolio.Controllers
             return View(album);
         }
 
+        private bool AlbumExists(int id)
+        {
+            return _context.Albums.Any(e => e.AlbumID == id);
+        }
+
+
         // GET: Albums/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -176,11 +182,6 @@ namespace PhotoPortfolio.Controllers
             _context.Albums.Remove(album);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool AlbumExists(int id)
-        {
-            return _context.Albums.Any(e => e.AlbumID == id);
         }
 
         // Add this action to the AlbumsController

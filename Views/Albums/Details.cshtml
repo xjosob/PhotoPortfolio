@@ -9,20 +9,12 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>@Model.Title</h1>
-                <p>@Model.Description</p>
 
                 @if (User.IsInRole("Admin"))
                 {
-                    <form asp-action="UpdateThumbnail" enctype="multipart/form-data" class="mb-4">
-                        <div class="form-group">
-                            <label for="Thumbnail" class="control-label">Update Thumbnail</label>
-                            <input type="file" name="Thumbnail" class="form-control" />
-                        </div>
-                        <input type="hidden" name="albumId" value="@Model.AlbumID" />
-                        <div class="form-group">
-                            <input type="submit" value="Upload" class="btn btn-primary" />
-                        </div>
-                    </form>
+                    <p>
+                        <a href="@Url.Action("Edit", new { id = Model.AlbumID })" class="btn btn-warning">Edit Album</a>
+                    </p>
                 }
 
                 <h3>Photos</h3>
@@ -38,7 +30,7 @@
                     @foreach (var photo in Model.Photos)
                     {
                         <div class="col-md-12 mb-3">
-                            <img class="img-fluid" src="@photo.FilePath" alt="Photo">
+                            <img class="img-fluid" src="@photo.FilePath" alt="Photo" style="cursor: pointer;">
                             @if (User.IsInRole("Admin"))
                             {
                                 <a href="@Url.Action("Delete", "Photos", new { id = photo.PhotoID })" class="btn btn-danger mt-2">Delete Photo</a>
