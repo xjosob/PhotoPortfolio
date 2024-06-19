@@ -1,5 +1,7 @@
 body {
     padding-top: 56px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
 }
 
 .navbar-brand {
@@ -8,16 +10,19 @@ body {
 }
 
 .jumbotron {
-    background-color: #343a40;
-    color: white;
+    background-color: #fff8e1;
+    color: #333;
 }
 
 .footer {
     padding: 1em 0;
     text-align: center;
+    background-color: #f7f7f7;
+    color: #333;
 }
 
 .album-card {
+    background-color: #e8f5e9;
     position: relative;
     border: none;
     overflow: hidden;
@@ -60,6 +65,7 @@ body {
 .album-link:hover .album-title {
     color: white;
 }
+
 
 .album-link {
     cursor: pointer;
