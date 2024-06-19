@@ -182,5 +182,41 @@ namespace PhotoPortfolio.Controllers
         {
             return _context.Albums.Any(e => e.AlbumID == id);
         }
+
+        // Add this action to the AlbumsController
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateThumbnail(int albumId, IFormFile Thumbnail)
+        {
+            var album = await _context.Albums.FindAsync(albumId);
+            if (album == null)
+            {
+                return NotFound();
+            }
+
+            if (Thumbnail != null && Thumbnail.Length > 0)
+            {
+                var uploadPath = Path.Combine(_environment.WebRootPath, "uploads");
+                var filePath = Path.Combine(uploadPath, Thumbnail.FileName);
+
+                if (!Directory.Exists(uploadPath))
+                {
+                    Directory.CreateDirectory(uploadPath);
+                }
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await Thumbnail.CopyToAsync(fileStream);
+                }
+
+                album.ThumbnailPath = $"/uploads/{Thumbnail.FileName}";
+                _context.Update(album);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Details), new { id = albumId });
+        }
+
     }
 }

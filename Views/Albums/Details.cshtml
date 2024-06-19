@@ -12,6 +12,20 @@
     <img src="@Model.ThumbnailPath" alt="Album Thumbnail" class="img-thumbnail" style="width: 150px; height: 150px;" />
 }
 
+@if (User.IsInRole("Admin"))
+{
+    <form asp-action="UpdateThumbnail" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="Thumbnail" class="control-label">Update Thumbnail</label>
+            <input type="file" name="Thumbnail" class="form-control" />
+        </div>
+        <input type="hidden" name="albumId" value="@Model.AlbumID" />
+        <div class="form-group">
+            <input type="submit" value="Upload" class="btn btn-primary" />
+        </div>
+    </form>
+}
+
 <h3>Photos</h3>
 
 @if (User.IsInRole("Admin"))
@@ -26,7 +40,9 @@
     {
         <div class="col-md-3">
             <div class="card mb-3">
-                <img class="card-img-top" src="@photo.FilePath" alt="Photo">
+                <a href="@photo.FilePath" target="_blank">
+                    <img class="card-img-top" src="@photo.FilePath" alt="Photo">
+                </a>
                 <div class="card-body">
                     @if (User.IsInRole("Admin"))
                     {

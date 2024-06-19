@@ -26,7 +26,6 @@
                 <td>@album.Description</td>
                 <td>
                     <a href="@Url.Action("Details", "Albums", new { id = album.AlbumID })" class="btn btn-info">View</a>
-                    <a href="@Url.Action("Edit", "Albums", new { id = album.AlbumID })" class="btn btn-warning">Edit</a>
                     <a href="@Url.Action("Delete", "Albums", new { id = album.AlbumID })" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
