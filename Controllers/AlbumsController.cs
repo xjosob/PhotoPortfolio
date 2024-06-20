@@ -55,7 +55,7 @@ namespace PhotoPortfolio.Controllers
         // POST: Albums/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title")] Album album, IFormFile Thumbnail)
+        public async Task<IActionResult> Create([Bind("Title,ThumbnailPath")] Album album, IFormFile Thumbnail)
         {
             if (ModelState.IsValid)
             {
