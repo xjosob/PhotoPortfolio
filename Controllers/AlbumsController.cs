@@ -22,7 +22,9 @@ namespace PhotoPortfolio.Controllers
         // GET: Albums
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Albums.ToListAsync());
+            var albums = await _context.Albums.ToListAsync();
+            ViewBag.IsAdmin = User.IsInRole("Admin");
+            return View(albums);
         }
 
         // GET: Albums/Details/5
@@ -53,7 +55,7 @@ namespace PhotoPortfolio.Controllers
         // POST: Albums/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title")] Album album, IFormFile Thumbnail)
+        public async Task<IActionResult> Create([Bind("Title,Thumbnail")] Album album, IFormFile Thumbnail)
         {
             if (ModelState.IsValid)
             {
