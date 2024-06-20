@@ -12,11 +12,14 @@ namespace PhotoPortfolio.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _environment;
+        private readonly ILogger<AlbumsController> _logger;
 
-        public AlbumsController(ApplicationDbContext context, IWebHostEnvironment environment)
+
+        public AlbumsController(ApplicationDbContext context, IWebHostEnvironment environment, ILogger<AlbumsController> logger)
         {
             _context = context;
             _environment = environment;
+            _logger = logger;
         }
 
         // GET: Albums
@@ -55,7 +58,7 @@ namespace PhotoPortfolio.Controllers
         // POST: Albums/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,ThumbnailPath")] Album album, IFormFile Thumbnail)
+        public async Task<IActionResult> Create([Bind("AlbumID,Title,ThumbnailPath")] Album album, IFormFile Thumbnail)
         {
             if (ModelState.IsValid)
             {
@@ -81,6 +84,7 @@ namespace PhotoPortfolio.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(album);
         }
 
